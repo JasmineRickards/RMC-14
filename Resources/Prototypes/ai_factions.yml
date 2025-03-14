@@ -8,6 +8,8 @@
     - Zombie
     - Revolutionary
     - AllHostile
+    - RMCXeno
+    - UNMC
 
 - type: npcFaction
   id: NanoTrasen
@@ -19,6 +21,7 @@
   - Revolutionary
   - Dragon
   - AllHostile
+  - RMCXeno
 
 - type: npcFaction
   id: Mouse
@@ -37,6 +40,7 @@
   - Zombie
   - Xeno
   - AllHostile
+  - RMCXeno
 
 - type: npcFaction
   id: SimpleHostile
@@ -48,6 +52,8 @@
   - Zombie
   - Revolutionary
   - AllHostile
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: SimpleNeutral
@@ -62,6 +68,8 @@
   - Zombie
   - Dragon
   - AllHostile
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: Xeno
@@ -73,6 +81,8 @@
   - Zombie
   - Revolutionary
   - AllHostile
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: Zombie
@@ -85,6 +95,8 @@
   - PetsNT
   - Revolutionary
   - AllHostile
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: Revolutionary
@@ -94,6 +106,8 @@
   - SimpleHostile
   - Dragon
   - AllHostile
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: AllHostile
@@ -109,3 +123,5 @@
   - Xeno
   - Zombie
   - Revolutionary
+  - RMCXeno
+  - UNMC
