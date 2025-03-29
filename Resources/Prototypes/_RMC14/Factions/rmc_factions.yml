@@ -2,14 +2,19 @@
   id: UNMC
   hostile:
   - RMCXeno
-
+  - Xeno
+  - Syndicate
 - type: npcFaction
   id: RMCXeno
   hostile:
   - UNMC
-
+  - Syndicate
+  - NanoTrasen
 - type: npcFaction
   id: RMCDumb
   hostile:
   - UNMC
   - RMCXeno
+  - Syndicate
+  - Xeno
+  - NanoTrasen
