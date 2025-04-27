@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Shared._RMC14.Attachable.Components;
 using Content.Shared._RMC14.CCVar;
 using Content.Shared._RMC14.Evasion;
 using Content.Shared._RMC14.Marines.Orders;
@@ -51,6 +52,7 @@ public sealed class CMGunSystem : EntitySystem
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly SharedGunSystem _gun = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
     [Dependency] private readonly INetConfigurationManager _netConfig = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
@@ -407,7 +409,6 @@ public sealed class CMGunSystem : EntitySystem
             return;
 
         var userDelay = EnsureComp<UserPointblankCooldownComponent>(user);
-
         if (_timing.CurTime < userDelay.LastPBAt + userDelay.TimeBetweenPBs)
             return;
 
@@ -422,6 +423,9 @@ public sealed class CMGunSystem : EntitySystem
                 return;
             }
         }
+
+        if (!_interaction.InRangeUnobstructed(gun.Owner, gunComp.Target.Value, gun.Comp.Range))
+            return;
 
         foreach (var projectile in args.FiredProjectiles)
         {
@@ -720,6 +724,9 @@ public sealed class CMGunSystem : EntitySystem
             user = (container.Owner, hands);
             return true;
         }
+
+        if (container != null && TryComp(container.Owner, out AttachableHolderComponent? holder) && holder.SupercedingAttachable == gun)
+            return TryGetGunUser(container.Owner, out user);
 
         user = default;
         return false;

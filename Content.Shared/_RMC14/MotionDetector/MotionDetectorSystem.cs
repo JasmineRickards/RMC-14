@@ -82,6 +82,9 @@ public sealed class MotionDetectorSystem : EntitySystem
         if (!ent.Comp.HandToggleable)
             return;
 
+        if (!_hands.IsHolding(args.User, ent))
+            return;
+
         args.Handled = true;
         Toggle(ent);
 
@@ -302,7 +305,7 @@ public sealed class MotionDetectorSystem : EntitySystem
                 if (tracked.Comp.LastMove < time - detector.MoveTime)
                     continue;
 
-                detector.Blips.Add(_transform.GetMapCoordinates(tracked));
+                detector.Blips.Add(new Blip(_transform.GetMapCoordinates(tracked), tracked.Comp.IsQueenEye));
             }
 
             UpdateAppearance((uid, detector));

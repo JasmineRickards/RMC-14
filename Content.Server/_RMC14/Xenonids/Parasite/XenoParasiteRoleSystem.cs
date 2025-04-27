@@ -1,7 +1,7 @@
 using Content.Server.GameTicking;
 using Content.Server.Ghost.Roles;
-using Content.Shared._RMC14.Xenonids.Construction.EggMorpher;
 using Content.Shared._RMC14.CCVar;
+using Content.Shared._RMC14.Xenonids.Construction.EggMorpher;
 using Content.Shared._RMC14.Xenonids.Egg;
 using Content.Shared._RMC14.Xenonids.Parasite;
 using Content.Shared._RMC14.Xenonids.Projectile.Parasite;
@@ -27,7 +27,6 @@ public sealed class XenoEggRoleSystem : EntitySystem
     [Dependency] private readonly GhostRoleSystem _ghostRole = default!;
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
     [Dependency] private readonly IConfigurationManager _config = default!;
 
@@ -46,6 +45,11 @@ public sealed class XenoEggRoleSystem : EntitySystem
         Subs.BuiEvents<EggMorpherComponent>(XenoParasiteGhostUI.Key, subs =>
         {
             subs.Event<XenoParasiteGhostBuiMsg>(OnEggMorpherGhostBuiChosen);
+        });
+
+        Subs.BuiEvents<ParasiteAIComponent>(XenoParasiteGhostUI.Key, subs =>
+        {
+            subs.Event<XenoParasiteGhostBuiMsg>(OnParasiteGhostBuiChosen);
         });
 
         Subs.CVar(_config, RMCCVars.RMCParasiteSpawnInitialDelayMinutes, v => _parasiteSpawnDelay = TimeSpan.FromMinutes(v), true);
@@ -93,12 +97,29 @@ public sealed class XenoEggRoleSystem : EntitySystem
         if (!SharedChecks(ent, user))
             return;
 
-        if (ent.Comp.CurParasites > ent.Comp.ReservedParasites && _eggMorpherSystem.TryCreateParasiteFromEggMorpher(ent, out var parasite))
+        if (ent.Comp.CurParasites > ent.Comp.ReservedParasites &&
+            _eggMorpherSystem.TryCreateParasiteFromEggMorpher(ent, out var parasite) &&
+            parasite != null &&
+            _actor.TryGetSession(user, out var session) &&
+            session != null)
         {
-            if (_actor.TryGetSession(user, out var session) && session != null)
-                _ghostRole.GhostRoleInternalCreateMindAndTransfer(session, parasite.Value, parasite.Value);
+            _ghostRole.GhostRoleInternalCreateMindAndTransfer(session, parasite.Value, parasite.Value);
         }
     }
+
+    private void OnParasiteGhostBuiChosen(Entity<ParasiteAIComponent> ent, ref XenoParasiteGhostBuiMsg args)
+    {
+        var user = args.Actor;
+
+        if (!SharedChecks(ent, user))
+            return;
+
+        if (_actor.TryGetSession(user, out var session) && session != null)
+        {
+            _ghostRole.GhostRoleInternalCreateMindAndTransfer(session, ent.Owner, ent.Owner);
+        }
+    }
+
     /// <summary>
     /// Can this user take a parasite role
     /// </summary>

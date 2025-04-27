@@ -21,13 +21,15 @@
   - Revolutionary
   - Dragon
   - AllHostile
+  - Wizard
   - RMCXeno
 
 - type: npcFaction
   id: Mouse
   hostile:
-    - PetsNT
-    - AllHostile
+  - PetsNT
+  - AllHostile
+  - Wizard
 
 - type: npcFaction
   id: Passive
@@ -40,6 +42,8 @@
   - Zombie
   - Xeno
   - AllHostile
+  - Wizard
+  - Dragon
   - RMCXeno
 
 - type: npcFaction
@@ -52,6 +56,8 @@
   - Zombie
   - Revolutionary
   - AllHostile
+  - Wizard
+  - Dragon
   - RMCXeno
   - UNMC
 
@@ -68,6 +74,7 @@
   - Zombie
   - Dragon
   - AllHostile
+  - Wizard
   - RMCXeno
   - UNMC
 
@@ -81,6 +88,8 @@
   - Zombie
   - Revolutionary
   - AllHostile
+  - Wizard
+  - Dragon
   - RMCXeno
   - UNMC
 
@@ -95,6 +104,8 @@
   - PetsNT
   - Revolutionary
   - AllHostile
+  - Wizard
+  - Dragon
   - RMCXeno
   - UNMC
 
@@ -106,6 +117,7 @@
   - SimpleHostile
   - Dragon
   - AllHostile
+  - Wizard
   - RMCXeno
   - UNMC
 
@@ -123,5 +135,22 @@
   - Xeno
   - Zombie
   - Revolutionary
+  - Wizard
+
+- type: npcFaction
+  id: Wizard
+  hostile:
+  - NanoTrasen
+  - Dragon
+  - Mouse
+  - Passive
+  - PetsNT
+  - SimpleHostile
+  - SimpleNeutral
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Revolutionary
+  - AllHostile
   - RMCXeno
   - UNMC
