@@ -40,6 +40,8 @@
   - CMAccessColonyMedbay
 #  - TODO RMC14 WeYa flight
   - CMAccessColonyCommand
+  accessGroups:
+  - AllAccess
   minimapIcon:
     sprite: _RMC14/Interface/map_blips.rsi
     state: cl

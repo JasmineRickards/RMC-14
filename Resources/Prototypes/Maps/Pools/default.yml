@@ -1,10 +1,9 @@
 - type: gameMapPool
   id: DefaultMapPool
   maps:
-  # - Savannah # Ship for downstreams and events
-  - Amber
+  - Savannah # Ship for downstreams and events
 
 - type: gameMapPool
   id: DefaultMapPoolAlmayer
   maps:
-  - Amber
+  - Savannah
