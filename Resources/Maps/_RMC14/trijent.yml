@@ -354,6 +354,7 @@ entities:
       - name: Rainstorm
         duration: 360
         weatherType: RMCTrijentRainLight
+        lightningChance: 0.01
     - type: RMCAmbientLightEffects
     - type: BecomesStation
       id: Trijent

@@ -164,6 +164,7 @@ entities:
       - name: Rainstorm
         duration: 240
         weatherType: RMCStrataStormLight
+        lightningChance: 0.02
     - type: RMCAmbientLightEffects
     - type: Broadphase
     - type: OccluderTree

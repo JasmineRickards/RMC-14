@@ -1,11 +1,11 @@
 meta:
   format: 7
   category: Map
-  engineVersion: 248.0.2
+  engineVersion: 251.0.1
   forkId: ""
   forkVersion: ""
-  time: 03/28/2025 23:31:21
-  entityCount: 39880
+  time: 05/20/2025 14:12:40
+  entityCount: 39882
 maps:
 - 1
 grids:
@@ -247,12 +247,22 @@ entities:
     - type: RMCWeatherCycle
       minTimeBetweenEvents: 1200
       weatherEvents:
-      - name: Duststorm
-        duration: 600
+      - lightningSound: !type:SoundCollectionSpecifier
+          collection: RMCThunder
+        lightningEffects:
+        - RMCColorSequenceLightningSharpPeak
+        - RMCColorSequenceLightningFlicker
         weatherType: RMCBigRedDust
-      - name: Sandstorm
-        duration: 360
+        duration: 600
+        name: Duststorm
+      - lightningSound: !type:SoundCollectionSpecifier
+          collection: RMCThunder
+        lightningEffects:
+        - RMCColorSequenceLightningSharpPeak
+        - RMCColorSequenceLightningFlicker
         weatherType: RMCBigRedSand
+        duration: 360
+        name: Sandstorm
     - type: RMCAmbientLightEffects
     - type: MapGrid
       chunks:
@@ -190087,7 +190097,7 @@ entities:
       pos: 126.5,-167.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -11491.493
+      secondsUntilStateChange: -11653.981
       state: Opening
   - uid: 27915
     components:
@@ -205431,6 +205441,13 @@ entities:
     - type: Transform
       pos: 142.5,-142.5
       parent: 1
+- proto: RMCShovel
+  entities:
+  - uid: 39499
+    components:
+    - type: Transform
+      pos: 26.5,-61.5
+      parent: 1
 - proto: RMCShutterAlmayer
   entities:
   - uid: 20472
@@ -208185,6 +208202,18 @@ entities:
     - type: Transform
       pos: 76.5,-183.5
       parent: 1
+- proto: RMCSpawnerCorpseWeYaPMC
+  entities:
+  - uid: 38524
+    components:
+    - type: Transform
+      pos: 115.5,-161.5
+      parent: 1
+  - uid: 38525
+    components:
+    - type: Transform
+      pos: 185.5,-52.5
+      parent: 1
 - proto: RMCSpawnerFigurinePatron
   entities:
   - uid: 38963
@@ -210183,13 +210212,6 @@ entities:
     components:
     - type: Transform
       pos: 101.5,-80.5
-      parent: 1
-- proto: Shovel
-  entities:
-  - uid: 39499
-    components:
-    - type: Transform
-      pos: 26.5,-61.5
       parent: 1
 - proto: SnapPopBox
   entities:

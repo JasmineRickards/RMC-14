@@ -145,9 +145,11 @@ entities:
       - name: Tropical Storm
         duration: 240
         weatherType: RMCStrataStormVeryLight
+        lightningChance: 0.01
       - name: Monsoon
         duration: 360
         weatherType: RMCStrataStormLight
+        lightningChance: 0.06
     - type: RMCAmbientLightEffects
     - type: LoadedMap
     - type: MapGrid
