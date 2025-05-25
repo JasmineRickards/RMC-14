@@ -2,65 +2,66 @@
   id: Amber
   mapName: 'Amber'
   mapPath: /Maps/amber.yml
-  minPlayers: 15
-  maxPlayers: 60
+  minPlayers: 0
   stations:
     Amber:
       stationProto: StandardNanotrasenStation
       components:
-      - type: StationNameSetup
-        mapNameTemplate: '{0} Amber Station {1}'
-        nameGenerator:
-          !type:NanotrasenNameGenerator
-          prefixCreator: '14-SB'
-      - type: StationEmergencyShuttle
-        emergencyShuttlePath: /Maps/Shuttles/emergency_amber.yml
-      - type: StationJobs
-        availableJobs: # 60 jobs total w/o latejoins & interns, 77 jobs total w/ latejoins & interns
-          #command (7)
-          Captain: [ 1, 1 ]
-          HeadOfPersonnel: [ 1, 1 ]
-          HeadOfSecurity: [ 1, 1 ]
-          ChiefMedicalOfficer: [ 1, 1 ]
-          ChiefEngineer: [ 1, 1 ]
-          ResearchDirector: [ 1, 1 ]
-          Quartermaster: [ 1, 1 ]
-          #service (14)
-          Bartender: [ 2, 2 ]
-          Botanist: [ 3, 3 ]
-          Chef: [ 2, 2 ]
-          Janitor: [ 2, 2 ]
-          Chaplain: [ 1, 1 ]
-          Librarian: [ 1, 1 ]
-          ServiceWorker: [ 2, 2 ]
-          Reporter: [ 1, 1 ]
-          #engineering (5 - 7)
-          AtmosphericTechnician: [ 3, 3 ]
-          StationEngineer: [ 2, 4 ]
-          TechnicalAssistant: [ 2, 2 ] #intern, not counted
-          #medical (9 - 11)
-          Chemist: [ 2, 2 ]
-          MedicalDoctor: [ 4, 6 ]
-          Paramedic: [ 2, 2 ]
-          MedicalIntern: [ 2, 2 ] #intern, not counted
-          Psychologist: [ 1, 1 ]
-          #science (4 - 6)
-          Scientist: [ 4, 6 ]
-          ResearchAssistant: [ 2, 2 ] #intern, not counted
-          #security (8 - 10)
-          Warden: [ 1, 1 ]
-          SecurityOfficer: [ 4, 6 ]
-          Detective: [ 1, 1 ]
-          SecurityCadet: [ 2, 2 ] #intern, not counted
-          Lawyer: [ 2, 2 ]
-          #supply (6 - 7)
-          SalvageSpecialist: [ 3, 3 ]
-          CargoTechnician: [ 3, 4 ]
-          #civilian (3+)
-          Passenger: [ -1, -1 ] #infinite, not counted
-          Clown: [ 1, 1 ]
-          Mime: [ 1, 1 ]
-          Musician: [ 1, 1 ]
-          #silicon (4)
-          StationAi: [ 1, 1 ]
-          Borg: [ 3, 3 ]
+        - type: StationNameSetup
+          mapNameTemplate: '{0} Amber Station {1}'
+          nameGenerator:
+            !type:NanotrasenNameGenerator
+            prefixCreator: '14-SB'
+        - type: StationEmergencyShuttle
+          emergencyShuttlePath: /Maps/Shuttles/emergency_amber.yml
+        - type: StationJobs
+          availableJobs:
+            #Command
+            CMCommandingOfficer: [1, 1]
+            CMExecutiveOfficer: [1, 1]
+            CMStaffOfficer: [4, 4]
+            CMSeniorEnlistedAdvisor: [2, 2]
+
+            #Military Police
+            CMChiefMP: [1, 1]
+            CMMilitaryWarden: [1, 1]
+            CMMilitaryPolice: [7, 10]
+
+            #Auxiliary
+            CMAuxiliarySupportOfficer: [1, 1]
+            CMIntelOfficer: [4, 4]
+            CMPilotDropship: [1, 1]
+            CMPilotGunship: [1, 1]
+            CMDropshipCrewChief: [2, 2]
+
+            #Engineering
+            CMChiefEngineer: [1, 1]
+#            CMOrdnanceTech: [3, 3]
+            CMMaintTech: [3, 3]
+
+            #Medical
+            CMCMO: [1, 1]
+            CMDoctor: [4, 6]
+            CMNurse: [4, 6]
+            CMResearcher: [2, 2]
+
+            #Requisition
+            CMQuartermaster: [1, 1]
+            CMCargoTech: [4, 4]
+            CMMessTech: [1, 1]
+
+            #Marines
+            CMSquadLeader: [4, 4]
+            CMFireteamLeader: [4, 8]
+            CMSmartGunOperator: [4, 4]
+            CMWeaponsSpecialist: [4, 4]
+            CMCombatTech: [8, 12]
+            CMHospitalCorpsman: [8, 16]
+            CMRifleman: [ -1, -1 ]
+
+            #Civilians
+            CMCorrespondent: [2, 2]
+            Passenger: [ -1, -1 ]
+
+            # Other
+            CMLiaison: [1, 1]
