@@ -35,7 +35,7 @@ public abstract partial class SharedGunSystem
 
     private void OnAltVerb(EntityUid uid, GunComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || component.SelectedMode == component.AvailableModes)
+        if (!args.CanAccess || !args.CanInteract || !args.CanComplexInteract || args.Hands == null || component.SelectedMode == component.AvailableModes)
             return;
 
         if (HasComp<XenoComponent>(args.User))
@@ -53,7 +53,7 @@ public abstract partial class SharedGunSystem
         args.Verbs.Add(verb);
     }
 
-    private SelectiveFire GetNextMode(GunComponent component)
+    public SelectiveFire GetNextMode(GunComponent component) //RMC14
     {
         var modes = new List<SelectiveFire>();
 

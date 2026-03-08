@@ -13,6 +13,8 @@
     max: 200
     evolvesTo: [ ]
   - type: XenoHidden
+  - type: FixedIdentity
+    name: rmc-rouny
 
 - type: entity
   parent:
@@ -28,6 +30,8 @@
     max: 200
     evolvesTo: [ ]
   - type: XenoHidden
+  - type: FixedIdentity
+    name: rmc-wehny
 
 - type: entity
   parent:
@@ -44,6 +48,10 @@
     description: roles-lesser-carrier-description
     raffle:
       settings: short
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - RMCSynthGrabbable
   - type: Sprite
     sprite: _RMC14/Mobs/Xenonids/Extras/lesser_carrier.rsi
     layers:
@@ -58,18 +66,6 @@
     - map: [ "enum.XenoInhandVisualLayers.Left" ]
       visible: false
     - map: [ "enum.XenoInhandVisualLayers.Right" ]
-      visible: false
-    - map: [ "focused" ]
-      sprite: _RMC14/Interface/xeno_hud.rsi
-      state: hudeye
-      visible: false
-    - map: [ "targetedDirection" ]
-      sprite: _RMC14/Effects/targeted.rsi
-      state: sniper_lockon_direction
-      visible: false
-    - map: [ "targetedDirectionIntense" ]
-      sprite: _RMC14/Effects/targeted.rsi
-      state: sniper_lockon_intense_direction
       visible: false
   - type: Xeno
     role: CMXenoLesserDrone
@@ -143,7 +139,7 @@
     prefix: lesser
   - type: TacticalMapIcon
     icon:
-      sprite: _RMC14/Interface/map_blips.rsi
+      sprite: /Textures/_RMC14/Interface/map_blips.rsi
       state: lesser_carrier
   - type: Evasion
     evasion: 10
@@ -176,3 +172,5 @@
         components:
         - XenoHeavy
   - type: XenoHidden
+  - type: FixedIdentity
+    name: rmc-lesser-carrier

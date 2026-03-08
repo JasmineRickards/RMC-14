@@ -20,6 +20,9 @@ public sealed partial class MeleeWeaponSystem
     /// </summary>
     public override void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true)
     {
+        if (localPos == Vector2.Zero) // RMC14
+            return;
+
         if (!Timing.IsFirstTimePredicted)
             return;
 
@@ -49,14 +52,14 @@ public sealed partial class MeleeWeaponSystem
         {
             if (user != weapon
                 && TryComp(weapon, out SpriteComponent? weaponSpriteComponent))
-                sprite.CopyFrom(weaponSpriteComponent);
+                _sprite.CopySprite((weapon, weaponSpriteComponent), (animationUid, sprite));
 
             spriteRotation = meleeWeaponComponent.WideAnimationRotation;
 
             if (meleeWeaponComponent.SwingLeft)
                 angle *= -1;
         }
-        sprite.Rotation = localPos.ToWorldAngle();
+        _sprite.SetRotation((animationUid, sprite), localPos.ToWorldAngle());
         var distance = Math.Clamp(localPos.Length() / 2f, 0.2f, 1f);
 
         var xform = _xformQuery.GetComponent(animationUid);
@@ -74,7 +77,7 @@ public sealed partial class MeleeWeaponSystem
             case WeaponArcAnimation.Thrust:
                 track = EnsureComp<TrackUserComponent>(animationUid);
                 track.User = user;
-                _animation.Play(animationUid, GetThrustAnimation(sprite, distance, spriteRotation), ThrustAnimationKey);
+                _animation.Play(animationUid, GetThrustAnimation((animationUid, sprite), distance, spriteRotation), ThrustAnimationKey);
                 if (arcComponent.Fadeout)
                     _animation.Play(animationUid, GetFadeAnimation(sprite, 0.05f, 0.15f), FadeAnimationKey);
                 break;
@@ -132,13 +135,13 @@ public sealed partial class MeleeWeaponSystem
         };
     }
 
-    private Animation GetThrustAnimation(SpriteComponent sprite, float distance, Angle spriteRotation)
+    private Animation GetThrustAnimation(Entity<SpriteComponent> sprite, float distance, Angle spriteRotation)
     {
         const float thrustEnd = 0.05f;
         const float length = 0.15f;
-        var startOffset = sprite.Rotation.RotateVec(new Vector2(0f, -distance / 5f));
-        var endOffset = sprite.Rotation.RotateVec(new Vector2(0f, -distance));
-        sprite.Rotation += spriteRotation;
+        var startOffset = sprite.Comp.Rotation.RotateVec(new Vector2(0f, -distance / 5f));
+        var endOffset = sprite.Comp.Rotation.RotateVec(new Vector2(0f, -distance));
+        _sprite.SetRotation(sprite.AsNullable(), sprite.Comp.Rotation + spriteRotation);
 
         return new Animation()
         {
@@ -225,6 +228,12 @@ public sealed partial class MeleeWeaponSystem
             {
                 var entRotation = TransformSystem.GetWorldRotation(xform);
                 targetPos += entRotation.RotateVec(arcComponent.Offset);
+            }
+            // RMC14
+            if (arcComponent.OriginOffset != null && arcComponent.OriginOffset != Vector2.Zero)
+            {
+                var userRotation = TransformSystem.GetWorldRotation(arcComponent.User.Value);
+                targetPos += userRotation.RotateVec(arcComponent.OriginOffset.Value);
             }
 
             TransformSystem.SetWorldPosition(uid, targetPos);

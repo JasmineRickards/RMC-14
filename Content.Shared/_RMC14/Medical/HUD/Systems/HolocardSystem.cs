@@ -1,10 +1,14 @@
 using Content.Shared._RMC14.Marines.Skills;
+using Content.Shared._RMC14.Synth;
+using Content.Shared._RMC14.Overwatch;
 using Content.Shared._RMC14.Medical.HUD.Components;
 using Content.Shared._RMC14.Medical.HUD.Events;
 using Content.Shared._RMC14.Medical.Scanner;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Popups;
 using Content.Shared.Verbs;
+using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -15,6 +19,9 @@ public sealed class HolocardSystem : EntitySystem
     [Dependency] private readonly SkillsSystem _skills = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
 
     public const int MinimumRequiredSkill = 2;
     public static readonly EntProtoId<SkillDefinitionComponent> SkillType = "RMCSkillMedical";
@@ -26,6 +33,10 @@ public sealed class HolocardSystem : EntitySystem
 
         SubscribeLocalEvent<HealthScannerComponent, OpenChangeHolocardUIEvent>(OpenChangeHolocardUI);
         SubscribeLocalEvent<HealthScannerComponent, RefreshEquipmentHudEvent<HealthScannerComponent>>(OnRefreshEquipmentHud);
+
+        SubscribeLocalEvent<HolocardContainerComponent, HolocardContainerStatusUpdateEvent>(OnHolocardContainerStatusUpdate);
+        SubscribeLocalEvent<HolocardContainerComponent, EntInsertedIntoContainerMessage>(OnHolocardContainerEntInserted);
+        SubscribeLocalEvent<HolocardContainerComponent, EntRemovedFromContainerMessage>(OnHolocardContainerEntRemoved);
     }
 
     private void ChangeHolocard(Entity<HolocardStateComponent> ent, ref HolocardChangeEvent args)
@@ -36,20 +47,36 @@ public sealed class HolocardSystem : EntitySystem
         if (!TryGetEntity(args.Owner, out var viewer))
             return;
 
-        if (!_transform.InRange(ent.Owner, viewer.Value, 15f))
+        if (!_transform.InRange(ent.Owner, viewer.Value, 15f) && !HasComp<OverwatchWatchingComponent>(viewer.Value))
             return;
+
+        if (HasComp<SynthComponent>(ent.Owner))
+        {
+            _popup.PopupClient(Loc.GetString("ui-holocard-change-synth-invalid"), viewer.Value, viewer.Value, PopupType.SmallCaution);
+            return;
+        }
 
         // A player with insufficient medical skill cannot change holocards
         if (!_skills.HasSkill(viewer.Value, SkillType, MinimumRequiredSkill))
             return;
 
         ent.Comp.HolocardStatus = args.NewHolocardStatus;
+
+        if (_container.TryGetOuterContainer(ent, Transform(ent), out var container))
+        {
+            var ev = new HolocardContainerStatusUpdateEvent(args.NewHolocardStatus);
+            RaiseLocalEvent(container.Owner, ref ev);
+        }
+
         Dirty(ent);
     }
 
     private void OnHolocardExaminableVerb(Entity<HolocardStateComponent> entity, ref GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract)
+            return;
+
+        if (HasComp<SynthComponent>(args.Target))
             return;
 
         // A player with insufficient medical skill cannot change holocards
@@ -82,11 +109,38 @@ public sealed class HolocardSystem : EntitySystem
     {
         var localOwner = GetEntity(args.Owner);
         var localTarget = GetEntity(args.Target);
+
+        if (HasComp<SynthComponent>(localTarget))
+        {
+            _popup.PopupClient(Loc.GetString("ui-holocard-change-synth-invalid"), localOwner, localOwner, PopupType.SmallCaution);
+            return;
+        }
+
         _ui.OpenUi(localTarget, HolocardChangeUIKey.Key, localOwner);
     }
 
     private void OnRefreshEquipmentHud(Entity<HealthScannerComponent> ent, ref RefreshEquipmentHudEvent<HealthScannerComponent> args)
     {
         args.Active = true;
+    }
+
+    private void OnHolocardContainerStatusUpdate(Entity<HolocardContainerComponent> container, ref HolocardContainerStatusUpdateEvent args)
+    {
+        _appearance.SetData(container, HolocardContainerVisuals.State, args.NewStatus);
+    }
+
+    private void OnHolocardContainerEntInserted(Entity<HolocardContainerComponent> container, ref EntInsertedIntoContainerMessage args)
+    {
+        var state = HolocardStatus.None;
+
+        if (TryComp<HolocardStateComponent>(args.Entity, out var holocard))
+            state = holocard.HolocardStatus;
+
+        _appearance.SetData(container, HolocardContainerVisuals.State, state);
+    }
+
+    private void OnHolocardContainerEntRemoved(Entity<HolocardContainerComponent> container, ref EntRemovedFromContainerMessage args)
+    {
+        _appearance.SetData(container, HolocardContainerVisuals.State, HolocardStatus.None);
     }
 }

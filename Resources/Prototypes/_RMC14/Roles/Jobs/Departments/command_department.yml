@@ -8,6 +8,8 @@
   - CMCommandingOfficer
   - CMExecutiveOfficer
   - CMStaffOfficer
+  - CMPVEPlatoonCommander
+  - CMRoyalMarinesTroopCommanderPVE
   primary: false
   departmentRadio: MarineCommand
   headOfDepartment: CMCommandingOfficer

@@ -1,12 +1,16 @@
-﻿- type: entity
+- type: entity
   parent: AdminObserver
   id: RMCAdminObserver
   categories: [ HideSpawnMenu ]
   components:
+  - type: PropCaller
   - type: Loadout
     prototypes: [ RMCMobAghostGear ]
   - type: IntrinsicUI
     uis: { }
+  - type: Inventory
+    templateId: human
+  - type: RMCAdminGhost
 
 - type: startingGear
   parent: MobAghostGear
@@ -18,8 +22,11 @@
     back:
     - RMCAdminAccessConfigurator
     - HandheldHealthAnalyzerUnpowered
+    - CMHealthAnalyzer
     - DoorRemoteAll
     - AdminHypo
     - MeleeDebug200
     - ToolDebug
     - RMCTabletCO
+    - RMCWelderAdmin
+    - CMMultitool

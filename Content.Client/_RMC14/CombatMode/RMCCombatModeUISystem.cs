@@ -1,4 +1,5 @@
-﻿using Content.Client.CombatMode;
+﻿using Content.Client._RMC14.Emplacements;
+using Content.Client.CombatMode;
 using Content.Client.Hands.Systems;
 using Content.Shared._RMC14.CombatMode;
 using Content.Shared.CCVar;
@@ -19,6 +20,7 @@ public sealed class RMCCombatModeUISystem : EntitySystem
     [Dependency] private readonly HandsSystem _hands = default!;
     [Dependency] private readonly RMCCombatModeSystem _rmcCombatMode = default!;
     [Dependency] private readonly IUserInterfaceManager _ui = default!;
+    [Dependency] private readonly RMCWeaponControllerSystem _rmcSharedWeaponController = default!;
 
     private bool _crosshairsEnabled;
     private ICursor? _crosshairCursor;
@@ -31,18 +33,26 @@ public sealed class RMCCombatModeUISystem : EntitySystem
 
     public override void FrameUpdate(float frameTime)
     {
-        if (_ui.CurrentlyHovered is IViewportControl &&
-            _crosshairsEnabled &&
-            _combatMode.IsInCombatMode() &&
-            _hands.GetActiveHandEntity() is { } held &&
-            _rmcCombatMode.GetCrosshair(held) != null)
+        if (_ui.CurrentlyHovered is not IViewportControl)
+            return;
+
+        if (!_crosshairsEnabled || !_combatMode.IsInCombatMode())
         {
-            _crosshairCursor ??= _clyde.CreateCursor(new Image<Rgba32>(1, 1), Vector2i.One);
-            _clyde.SetCursor(_crosshairCursor);
+            _ui.CurrentlyHovered.CustomCursorShape = null;
+            return;
         }
-        else
+
+        var held = _hands.GetActiveHandEntity();
+        if (_rmcSharedWeaponController.TryGetControllingWeapon(out var weapon))
+            held = weapon;
+
+        if (held == null || _rmcCombatMode.GetCrosshair(held.Value) == null)
         {
-            _clyde.SetCursor(null);
+            _ui.CurrentlyHovered.CustomCursorShape = null;
+            return;
         }
+
+        _crosshairCursor ??= _clyde.CreateCursor(new Image<Rgba32>(1, 1), Vector2i.One);
+        _ui.CurrentlyHovered.CustomCursorShape = _crosshairCursor;
     }
 }

@@ -40,6 +40,18 @@
   - type: GrantMarineIcons
     factions:
     - RoyalMarines
+    - TSE
+
+- type: entity
+  abstract: true
+  parent: RMCHeadsetIconsTSE
+  id: RMCHeadsetIconsPara
+  components:
+    - type: GrantMarineIcons
+      factions:
+        - RoyalMarines
+        - TSE
+        - UNMC
 
 - type: entity
   abstract: true
@@ -58,3 +70,4 @@
   - type: GrantMarineIcons
     factions:
     - Bureau
+    - UNMC

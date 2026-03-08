@@ -4,9 +4,11 @@ using System.Net;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Server._RMC14.LinkAccount;
 using Content.Server.Administration.Logs;
 using Content.Shared.Administration.Logs;
 using Content.Shared.CCVar;
+using Content.Shared.Construction.Prototypes;
 using Content.Shared.Database;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
@@ -41,6 +43,8 @@ namespace Content.Server.Database
         Task SaveCharacterSlotAsync(NetUserId userId, ICharacterProfile? profile, int slot);
 
         Task SaveAdminOOCColorAsync(NetUserId userId, Color color);
+
+        Task SaveConstructionFavoritesAsync(NetUserId userId, List<ProtoId<ConstructionPrototype>> constructionFavorites);
 
         // Single method for two operations for transaction.
         Task DeleteSlotAndSetSelectedIndex(NetUserId userId, int deleteSlot, int newSlot);
@@ -362,7 +366,7 @@ namespace Content.Server.Database
 
         Task<(string Message, string User)?> GetRandomLobbyMessage();
 
-        Task<(string? Marine, string? Xeno)> GetRandomShoutout();
+        Task<(RoundEndShoutout? Marine, RoundEndShoutout? Xeno)> GetRandomShoutout();
 
         Task<List<string>> GetExcludedRoleTimers(Guid player, CancellationToken cancel);
 
@@ -379,7 +383,49 @@ namespace Content.Server.Database
             CommendationType type,
             int round);
 
-        Task<List<RMCCommendation>> GetCommendationsReceived(Guid player);
+        Task<List<RMCCommendation>> GetCommendationsReceived(Guid player, CommendationType? filterType = null, bool includePlayers = false);
+
+        Task<List<RMCCommendation>> GetCommendationsGiven(Guid player, CommendationType? filterType = null, bool includePlayers = false);
+
+        Task<List<RMCCommendation>> GetLastCommendations(int count, CommendationType? filterType = null, bool includePlayers = false);
+
+        Task<RMCCommendation?> GetCommendationById(int commendationId, bool includePlayers = false);
+
+        Task<List<RMCCommendation>> GetCommendationsByRound(int roundId, CommendationType? filterType = null, bool includePlayers = false);
+
+        Task<RMCCommendation?> DeleteCommendationById(int commendationId, Guid deletedBy, DateTimeOffset deletedAt, bool includePlayers = false);
+
+        Task<List<RMCCommendation>> DeleteCommendationsByRound(
+            int roundId,
+            CommendationType type,
+            Guid deletedBy,
+            DateTimeOffset deletedAt,
+            Guid? giverId = null,
+            Guid? receiverId = null,
+            bool includePlayers = false);
+
+        Task IncreaseInfects(Guid player);
+
+        Task<Dictionary<string, List<string>>?> GetAllActionOrders(Guid player);
+
+        Task SetActionOrder(Guid player, string id, List<string> actions);
+
+        Task AddChatBan(
+            int? round,
+            NetUserId target,
+            (IPAddress, int)? addressRange,
+            ImmutableTypedHwid? hwid,
+            TimeSpan? duration,
+            ChatType type,
+            NetUserId admin,
+            string reason
+        );
+
+        Task<List<RMCChatBans>> GetAllChatBans(Guid player);
+
+        Task<List<RMCChatBans>> GetActiveChatBans(Guid player);
+
+        Task<Guid?> TryPardonChatBan(int id, Guid? admin);
 
         #endregion
 
@@ -451,6 +497,7 @@ namespace Content.Server.Database
         private ServerDbBase _db = default!;
         private LoggingProvider _msLogProvider = default!;
         private ILoggerFactory _msLoggerFactory = default!;
+        private ISawmill _sawmill = default!;
 
         private bool _synchronous;
         // When running in integration tests, we'll use a single in-memory SQLite database connection.
@@ -466,6 +513,7 @@ namespace Content.Server.Database
             {
                 builder.AddProvider(_msLogProvider);
             });
+            _sawmill = _logMgr.GetSawmill("db.manager");
 
             _synchronous = _cfg.GetCVar(CCVars.DatabaseSynchronous);
 
@@ -528,6 +576,12 @@ namespace Content.Server.Database
         {
             DbWriteOpsMetric.Inc();
             return RunDbCommand(() => _db.SaveAdminOOCColorAsync(userId, color));
+        }
+
+        public Task SaveConstructionFavoritesAsync(NetUserId userId, List<ProtoId<ConstructionPrototype>> constructionFavorites)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SaveConstructionFavoritesAsync(userId, constructionFavorites));
         }
 
         public Task<PlayerPreferences?> GetPlayerPreferencesAsync(NetUserId userId, CancellationToken cancel)
@@ -1174,7 +1228,7 @@ namespace Content.Server.Database
             return RunDbCommand(() => _db.GetRandomLobbyMessage());
         }
 
-        public Task<(string? Marine, string? Xeno)> GetRandomShoutout()
+        public Task<(RoundEndShoutout? Marine, RoundEndShoutout? Xeno)> GetRandomShoutout()
         {
             DbReadOpsMetric.Inc();
             return RunDbCommand(() => _db.GetRandomShoutout());
@@ -1211,10 +1265,103 @@ namespace Content.Server.Database
             return RunDbCommand(() => _db.AddCommendation(giver, receiver, giverName, receiverName, name, text, type, round));
         }
 
-        public Task<List<RMCCommendation>> GetCommendationsReceived(Guid player)
+        public Task<List<RMCCommendation>> GetCommendationsReceived(Guid player, CommendationType? filterType = null, bool includePlayers = false)
         {
             DbReadOpsMetric.Inc();
-            return RunDbCommand(() => _db.GetCommendations(player));
+            return RunDbCommand(() => _db.GetCommendationsReceived(player, filterType, includePlayers));
+        }
+
+        public Task<List<RMCCommendation>> GetCommendationsGiven(Guid player, CommendationType? filterType = null, bool includePlayers = false)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetCommendationsGiven(player, filterType, includePlayers));
+        }
+
+        public Task<List<RMCCommendation>> GetLastCommendations(int count, CommendationType? filterType = null, bool includePlayers = false)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetLastCommendations(count, filterType, includePlayers));
+        }
+
+        public Task<RMCCommendation?> GetCommendationById(int commendationId, bool includePlayers = false)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetCommendationById(commendationId, includePlayers));
+        }
+
+        public Task<List<RMCCommendation>> GetCommendationsByRound(int roundId, CommendationType? filterType = null, bool includePlayers = false)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetCommendationsByRound(roundId, filterType, includePlayers));
+        }
+
+        public Task<RMCCommendation?> DeleteCommendationById(int commendationId, Guid deletedBy, DateTimeOffset deletedAt, bool includePlayers = false)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.DeleteCommendationById(commendationId, deletedBy, deletedAt, includePlayers));
+        }
+
+        public Task<List<RMCCommendation>> DeleteCommendationsByRound(
+            int roundId,
+            CommendationType type,
+            Guid deletedBy,
+            DateTimeOffset deletedAt,
+            Guid? giverId = null,
+            Guid? receiverId = null,
+            bool includePlayers = false)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.DeleteCommendationsByRound(roundId, type, deletedBy, deletedAt, giverId, receiverId, includePlayers));
+        }
+
+        public Task IncreaseInfects(Guid player)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.IncreaseInfects(player));
+        }
+
+        public Task<Dictionary<string, List<string>>?> GetAllActionOrders(Guid player)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetActionOrder(player));
+        }
+
+        public Task SetActionOrder(Guid player, string id, List<string> actions)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SetActionOrder(player, id, actions));
+        }
+
+        public Task AddChatBan(
+            int? round,
+            NetUserId target,
+            (IPAddress, int)? addressRange,
+            ImmutableTypedHwid? hwid,
+            TimeSpan? duration,
+            ChatType type,
+            NetUserId admin,
+            string reason)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.AddChatBan(round, target, addressRange, hwid, duration, type, admin, reason));
+        }
+
+        public Task<List<RMCChatBans>> GetAllChatBans(Guid player)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetAllChatBans(player));
+        }
+
+        public Task<List<RMCChatBans>> GetActiveChatBans(Guid player)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetActiveChatBans(player));
+        }
+
+        public Task<Guid?> TryPardonChatBan(int id, Guid? admin)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.TryPardonChatBan(id, admin));
         }
 
         // Wrapper functions to run DB commands from the thread pool.
@@ -1290,7 +1437,7 @@ namespace Content.Server.Database
                 Password = pass
             }.ConnectionString;
 
-            Logger.DebugS("db.manager", $"Using Postgres \"{host}:{port}/{db}\"");
+            _sawmill.Debug($"Using Postgres \"{host}:{port}/{db}\"");
 
             builder.UseNpgsql(connectionString);
             SetupLogging(builder);
@@ -1313,12 +1460,12 @@ namespace Content.Server.Database
             if (!inMemory)
             {
                 var finalPreferencesDbPath = Path.Combine(_res.UserData.RootDir!, configPreferencesDbPath);
-                Logger.DebugS("db.manager", $"Using SQLite DB \"{finalPreferencesDbPath}\"");
+                _sawmill.Debug($"Using SQLite DB \"{finalPreferencesDbPath}\"");
                 getConnection = () => new SqliteConnection($"Data Source={finalPreferencesDbPath}");
             }
             else
             {
-                Logger.DebugS("db.manager", "Using in-memory SQLite DB");
+                _sawmill.Debug("Using in-memory SQLite DB");
                 _sqliteInMemoryConnection = new SqliteConnection("Data Source=:memory:");
                 // When using an in-memory DB we have to open it manually
                 // so EFCore doesn't open, close and wipe it every operation.

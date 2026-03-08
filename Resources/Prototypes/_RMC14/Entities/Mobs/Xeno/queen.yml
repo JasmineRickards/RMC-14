@@ -3,12 +3,14 @@
   parent:
   - CMXenoDeveloped
   - CMXenoTail
+  - CMXenoFlammable
   - RMCXenoSpeechSounds
   - RMCXenoMobCollision
   id: RMCXenoQueenBase
   name: Queen
   description: A huge, looming alien creature. The biggest and the baddest.
   components:
+  - type: CanBuildThickFromConstructNode
   - type: GuideHelp
     guides:
     - RMCGuideRoleQueen
@@ -27,17 +29,8 @@
       visible: false
     - map: [ "enum.XenoInhandVisualLayers.Right" ]
       visible: false
-    - map: [ "focused" ]
-      sprite: _RMC14/Interface/xeno_hud.rsi
-      state: hudeye
-      visible: false
-    - map: [ "targetedDirection" ]
-      sprite: _RMC14/Effects/targeted.rsi
-      state: sniper_lockon_direction
-      visible: false
-    - map: [ "targetedDirectionIntense" ]
-      sprite: _RMC14/Effects/targeted.rsi
-      state: sniper_lockon_intense_direction
+    - map: [ "enum.RMCShieldVisuals.Base" ]
+      sprite: _RMC14/Effects/xeno_shields.rsi
       visible: false
   - type: MobState
     allowedStates:
@@ -89,11 +82,13 @@
     - DoorXenoResin
     - XenoStickyResin
     - XenoFastResin
+    - HiveAcidPillarXeno
     canOrderConstruction:
     - HiveCoreXenoConstructionNode
     - HiveEggMorpherXenoConstructionNode
     - HiveClusterXenoConstructionNode
     - HiveRecoveryNodeXenoConstructionNode
+    - HivePlasmaTreeXenoConstructionNode
   - type: XenoDevour
   - type: XenoPheromones
     pheromonesMultiplier: 4
@@ -102,10 +97,15 @@
     plasma: 1000
     maxPlasma: 1000
     plasmaRegenOnWeeds: 4
+    plasmaTransferDelay: 0
   - type: CMArmor
     xenoArmor: 25
     explosionArmor: 100
   - type: XenoWordQueen
+  - type: InnateCommandSpeech
+  - type: RMCInnateRadioTextIncrease
+    radioTextIncrease: 3
+    instrinsic: true
   - type: XenoGut
   - type: XenoClaws
     clawType: VerySharp
@@ -133,6 +133,7 @@
         mask:
         - MobMask
         - BarbedBarricade
+        - BarricadeImpassable
         layer:
         - MobLayer
       fix2:
@@ -165,7 +166,7 @@
     footstepSoundCollection:
       collection: XenoFootstepLarge
       params:
-        volume: -6
+        volume: 0
 #  - type: RandomSound
 #    sound:
 #      collection: XenoQueenBreath # TODO RMC14
@@ -222,10 +223,10 @@
     liveUpdate: true
   - type: TacticalMapIcon
     icon:
-      sprite: _RMC14/Interface/map_blips.rsi
+      sprite: /Textures/_RMC14/Interface/map_blips.rsi
       state: xenoqueen
     background:
-      sprite: _RMC14/Interface/map_blips.rsi
+      sprite: /Textures/_RMC14/Interface/map_blips.rsi
       state: xeno_ruler
   - type: AcidTrap
   - type: TacticalMapLiveUpdateOnOvi
@@ -246,24 +247,48 @@
   - type: XenoOmitNumber
   - type: RMCFireArmorDebuffModifier
     debuffModifier: 1.4
+  - type: RMCImmuneToIgnition
+    bypassWhitelist:
+      components:
+      - RMCFireImmunityBypass  # Only fires with this component can ignite the queen
+  - type: RMCImmuneToFireTileDamage
+    bypassWhitelist:
+      components:
+      - RMCFireImmunityBypass  # Only fires with this component can bypass immunity
   - type: IntelRecoverCorpseObjectiveOnDeath
     value: 1.4
   - type: QueenEyeAction
   - type: StunFriendlyXenoOnStep
+    whitelist:
+      components:
+      - StunFriendlyXenoOnStep
   - type: XenoToggleChargingKnockback
     enabled: false
   - type: XenoToggleChargingStop
+  - type: FixedIdentity
+    name: cm-job-name-xeno-queen
+  - type: RMCSurgeryXenoHeart
+    item: RMCOrganXenoHeartTQ
+  - type: RMCTrackable
+  - type: ExcludedFromKingVote
+    canVote: true
+  - type: RemoveComponents
+    components:
+    - type: Gibbable
 
 - type: entity
   parent: RMCXenoQueenBase
   id: CMXenoQueen
-  #components:
+  components:
+  - type: RMCActionOrder
+    id: CMXenoQueen
   # - type: XenoEvolution #can be enabled for events like april fools.
   #   strains:
   #   - RMCXenoQueenMaid
 
 - type: entity
   id: XenoLeaderPheromoneRelay
+  categories: [ HideSpawnMenu ]
   components:
   - type: XenoPheromones
 
@@ -300,7 +325,7 @@
     color: "#a800a8"
     sprite: _RMC14/Effects/xeno_eye.rsi
     layers:
-    - state: hologram
+    - state: hudeye1
   - type: Eye
     drawFov: false
   - type: QueenEye

@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: RMCAreaBase
   id: RMCAreaLv759
   name: LV-759 Hybrisa Prospera
@@ -23,6 +23,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     weatherEnabled: false
@@ -39,6 +40,7 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
 
@@ -56,6 +58,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: false
     supplyDrop: false
     resinAllowed: false
@@ -64,6 +67,7 @@
     unweedable: false
     minimapColor: '#3A3A3AFF'
     weatherEnabled: false
+    alwaysPowered: true
 
 - type: entity
   parent: RMCAreaLv759
@@ -79,6 +83,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: false
     supplyDrop: false
     resinAllowed: false
@@ -100,6 +105,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: false
     supplyDrop: false
     resinAllowed: false
@@ -107,6 +113,7 @@
     noTunnel: true
     unweedable: false
     minimapColor: '#3A3A3AFF'
+    alwaysPowered: true
 
 - type: entity
   parent: RMCAreaLv759Bunker
@@ -120,6 +127,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: false
     supplyDrop: false
     resinAllowed: false
@@ -145,6 +153,7 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz1
@@ -168,6 +177,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     landingZone: true
@@ -187,15 +197,17 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     landingZone: true
     linkedLz: dropship_lz1
+    alwaysPowered: true
 
 - type: entity
   parent: RMCAreaLv759Outdoors
   id: RMCAreaLv759OutdoorsLandingZone2
-  name: KMCC Interstellar Freight Hub - Landing Zone Two
+  name: TMCC Interstellar Freight Hub - Landing Zone Two
   components:
   - type: Sprite
     state: mining_lz2
@@ -209,6 +221,7 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
@@ -221,7 +234,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubFlightControlRoom
-  name: KMCC Interstellar Freight Hub - Flight Control Room
+  name: TMCC Interstellar Freight Hub - Flight Control Room
   components:
   - type: Sprite
     state: hybrisa
@@ -232,6 +245,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
@@ -239,7 +253,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubSecurity
-  name: KMCC Interstellar Freight Hub - Security Checkpoint Office
+  name: TMCC Interstellar Freight Hub - Security Checkpoint Office
   components:
   - type: Sprite
     state: security_checkpoint
@@ -250,6 +264,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
@@ -257,7 +272,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubLoungeNorth
-  name: KMCC Interstellar Freight Hub - Passenger Departures - Lounge North
+  name: TMCC Interstellar Freight Hub - Passenger Departures - Lounge North
   components:
   - type: Sprite
     state: hybrisa
@@ -268,6 +283,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
@@ -275,7 +291,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubFuel
-  name: KMCC Interstellar Freight Hub - Fuel Storage & Maintenance - North
+  name: TMCC Interstellar Freight Hub - Fuel Storage & Maintenance - North
   components:
   - type: Sprite
     state: hybrisa
@@ -286,6 +302,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
@@ -293,7 +310,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubLoungeSouth
-  name: KMCC Interstellar Freight Hub - Passenger Departures - Lounge South
+  name: TMCC Interstellar Freight Hub - Passenger Departures - Lounge South
   components:
   - type: Sprite
     state: hybrisa
@@ -304,6 +321,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
@@ -311,7 +329,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubLoungeHallway
-  name: KMCC Interstellar Freight Hub - Passenger Departures - Hallway
+  name: TMCC Interstellar Freight Hub - Passenger Departures - Hallway
   components:
   - type: Sprite
     state: hybrisa
@@ -322,6 +340,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
@@ -329,7 +348,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubSouthOffice
-  name: KMCC Interstellar Freight Hub - Passenger Departures - South Office
+  name: TMCC Interstellar Freight Hub - Passenger Departures - South Office
   components:
   - type: Sprite
     state: hybrisa
@@ -340,6 +359,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
@@ -347,7 +367,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubMaintenance
-  name: KMCC Interstellar Freight Hub - Passenger Departures - Maintenance
+  name: TMCC Interstellar Freight Hub - Passenger Departures - Maintenance
   components:
   - type: Sprite
     state: hybrisa
@@ -358,6 +378,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
@@ -370,7 +391,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2KmccHub
   id: RMCAreaLv759IndoorsLandingZone2KmccHubLz2Console
-  name: KMCC Interstellar Freight Hub - Dropship Normandy Console
+  name: TMCC Interstellar Freight Hub - Dropship Normandy Console
   components:
   - type: Sprite
     state: hybrisa
@@ -381,14 +402,16 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     linkedLz: dropship_lz2
+    alwaysPowered: true
 
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubCargo
-  name: KMCC Interstellar Freight Hub - Cargo Processing Center
+  name: TMCC Interstellar Freight Hub - Cargo Processing Center
   components:
   - type: Sprite
     state: mining_cargo
@@ -399,6 +422,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     minimapColor: '#91BDCFE7'
@@ -407,7 +431,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsLandingZone2
   id: RMCAreaLv759IndoorsLandingZone2KmccHubMaintenanceNorth
-  name: KMCC Interstellar Freight Hub - Cargo Processing Center - Maintenance
+  name: TMCC Interstellar Freight Hub - Cargo Processing Center - Maintenance
   components:
   - type: Sprite
     state: mining
@@ -418,6 +442,7 @@
     mortarFire: true
     lasing: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: true
     minimapColor: '#91BDCFE7'
@@ -426,7 +451,7 @@
 - type: entity
   parent: RMCAreaLv759OutdoorsLandingZone2
   id: RMCAreaLv759OutdoorsLandingZone2KmccHubCargoEntranceSouth
-  name: KMCC Interstellar Freight Hub - Cargo Processing Center - Main Entrance & South Unloading Platform
+  name: TMCC Interstellar Freight Hub - Cargo Processing Center - Main Entrance & South Unloading Platform
   components:
   - type: Sprite
     state: mining
@@ -437,6 +462,7 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
     minimapColor: '#6C6767D8'
@@ -456,6 +482,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: false
     supplyDrop: false
     avoidBioscan: false
@@ -477,6 +504,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -495,6 +523,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -513,6 +542,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -571,6 +601,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -589,6 +620,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -615,6 +647,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -641,6 +674,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -659,6 +693,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -677,6 +712,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#856600EE'
@@ -695,6 +731,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -718,6 +755,7 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
     minimapColor: '#390192EE'
@@ -736,6 +774,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -746,7 +785,7 @@
   id: RMCAreaLv759IndoorsCavesNorthEastCavesSouth
   components:
   - type: Area
-    linkedLz: list(dropship_lz1, dropship_lz2)
+    linkedLz: dropship_lz1, dropship_lz2
 
 - type: entity
   parent: RMCAreaLv759IndoorsCaves
@@ -762,6 +801,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -787,6 +827,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -805,6 +846,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
     minimapColor: '#390192EE'
@@ -812,7 +854,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsCaves
   id: RMCAreaLv759IndoorsCavesNorthEastCavesComms
-  name: KMCC - Mining Outpost - East - Subspace-Communications
+  name: TMCC - Mining Outpost - East - Subspace-Communications
   components:
   - type: Sprite
     state: comms_1
@@ -823,10 +865,11 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
     minimapColor: '#00B3FFE7'
-    linkedLz: list(dropship_lz1, dropship_lz2)
+    linkedLz: dropship_lz1, dropship_lz2
 
 - type: entity
   parent: RMCAreaLv759IndoorsCaves
@@ -853,6 +896,7 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
     minimapColor: '#390192EE'
@@ -871,6 +915,7 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
     minimapColor: '#4E6D67AE'
@@ -933,6 +978,7 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
 
@@ -950,6 +996,7 @@
     mortarFire: true
     lasing: true
     medevac: true
+    paradropping: true
     OB: true
     supplyDrop: true
     minimapColor: '#00B3FFE7'
@@ -1160,6 +1207,7 @@
     state: wydropship
   - type: Area
     minimapColor: '#6C6767D8'
+    alwaysPowered: true
 
 - type: entity
   parent: RMCAreaLv759IndoorsSpaceport
@@ -1170,6 +1218,18 @@
     state: wydropship
   - type: Area
     minimapColor: '#6C6767D8'
+    alwaysPowered: true
+
+- type: entity
+  parent: RMCAreaLv759IndoorsSpaceport
+  id: RMCAreaLv759IndoorsSpaceportDogbite
+  name: UD-9M 'Dogbite' Utility Dropship
+  components:
+  - type: Sprite
+    state: wydropship
+  - type: Area
+    minimapColor: '#525252D8'
+    alwaysPowered: true
 
 - type: entity
   parent: RMCAreaLv759Indoors
@@ -1662,7 +1722,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostNorth
-  name: KMCC - Mining Outpost - North
+  name: TMCC - Mining Outpost - North
   components:
   - type: Sprite
     state: mining
@@ -1670,7 +1730,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostNorthMaint
-  name: KMCC - Mining Outpost - North - Maintenance
+  name: TMCC - Mining Outpost - North - Maintenance
   components:
   - type: Sprite
     state: mining
@@ -1678,7 +1738,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostNortheast
-  name: KMCC - Mining Outpost - Northeast
+  name: TMCC - Mining Outpost - Northeast
   components:
   - type: Sprite
     state: mining
@@ -1689,7 +1749,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostSouth
-  name: KMCC - Mining Outpost - Southeast
+  name: TMCC - Mining Outpost - Southeast
   components:
   - type: Sprite
     state: mining
@@ -1697,7 +1757,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostVehicledeployment
-  name: KMCC - Mining Outpost - South - Vehicle Deployment
+  name: TMCC - Mining Outpost - South - Vehicle Deployment
   components:
   - type: Sprite
     state: mining
@@ -1707,7 +1767,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostProcessing
-  name: KMCC - Mining Outpost - South - Processing & Storage
+  name: TMCC - Mining Outpost - South - Processing & Storage
   components:
   - type: Sprite
     state: mining
@@ -1717,17 +1777,17 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostEast
-  name: KMCC - Mining Outpost - East
+  name: TMCC - Mining Outpost - East
   components:
   - type: Sprite
     state: mining
   - type: Area
-    linkedLz: list(dropship_lz1, dropship_lz2)
+    linkedLz: dropship_lz1, dropship_lz2
 
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostEastDorms
-  name: KMCC - Mining Outpost - East - Dorms
+  name: TMCC - Mining Outpost - East - Dorms
   components:
   - type: Sprite
     state: mining
@@ -1737,7 +1797,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostEastDeploymentbay
-  name: KMCC - Mining Outpost - East - Deployment Bay
+  name: TMCC - Mining Outpost - East - Deployment Bay
   components:
   - type: Sprite
     state: mining
@@ -1747,7 +1807,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostEastCommand
-  name: KMCC - Mining Outpost - East - Command Center
+  name: TMCC - Mining Outpost - East - Command Center
   components:
   - type: Sprite
     state: mining
@@ -1757,7 +1817,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsMiningOutpost
   id: RMCAreaLv759IndoorsMiningOutpostCargoMaint
-  name: KMCC - Mining Outpost - East - Maintenance
+  name: TMCC - Mining Outpost - East - Maintenance
   components:
   - type: Sprite
     state: mining
@@ -1770,7 +1830,7 @@
 - type: entity
   parent: RMCAreaLv759OutdoorsMiningOutpost
   id: RMCAreaLv759OutdoorsMiningOutpostSouthEntrance
-  name: KMCC - Mining Outpost - South - Vehicle Deployment Entrance
+  name: TMCC - Mining Outpost - South - Vehicle Deployment Entrance
   components:
   - type: Sprite
     state: mining
@@ -1940,7 +2000,7 @@
 - type: entity
   parent: RMCAreaLv759Indoors
   id: RMCAreaLv759IndoorsColonialMarshals
-  name: NSPA - Ironbridge Precinct
+  name: TSEPA - Ironbridge Precinct
   components:
   - type: Sprite
     state: security_hub
@@ -1950,22 +2010,22 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsPrisonersCells
-  name: NSPA - Ironbridge Precinct - Maximum Security Ward - Cells
+  name: TSEPA - Ironbridge Precinct - Maximum Security Ward - Cells
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsPrisonersFoyer
-  name: NSPA - Ironbridge Precinct - Maximum Security Ward - Foyer
+  name: TSEPA - Ironbridge Precinct - Maximum Security Ward - Foyer
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsPrisonersRecreationArea
-  name: NSPA - Ironbridge Precinct - Maximum Security Ward - Recreation Area & Shower Room
+  name: TSEPA - Ironbridge Precinct - Maximum Security Ward - Recreation Area & Shower Room
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsGarage
-  name: NSPA - Ironbridge Precinct - Vehicle Deployment & Maintenace
+  name: TSEPA - Ironbridge Precinct - Vehicle Deployment & Maintenace
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -1973,32 +2033,32 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsArmoryFoyer
-  name: NSPA - Ironbridge Precinct - Armory Foyer
+  name: TSEPA - Ironbridge Precinct - Armory Foyer
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsArmory
-  name: NSPA - Ironbridge Precinct - Armory
+  name: TSEPA - Ironbridge Precinct - Armory
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsArmoryFiringrange
-  name: NSPA - Ironbridge Precinct - Firing Range
+  name: TSEPA - Ironbridge Precinct - Firing Range
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsArmoryEvidenceroom
-  name: NSPA - Ironbridge Precinct - Evidence Room
+  name: TSEPA - Ironbridge Precinct - Evidence Room
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsOffice
-  name: NSPA - Ironbridge Precinct - Office
+  name: TSEPA - Ironbridge Precinct - Office
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsReception
-  name: NSPA - Ironbridge Precinct - Reception Office
+  name: TSEPA - Ironbridge Precinct - Reception Office
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -2006,7 +2066,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsHallwayCentral
-  name: NSPA - Ironbridge Precinct - Central Hallway
+  name: TSEPA - Ironbridge Precinct - Central Hallway
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -2014,12 +2074,12 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsHallwaySouth
-  name: NSPA - Ironbridge Precinct - South Hallway
+  name: TSEPA - Ironbridge Precinct - South Hallway
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsHallwayReception
-  name: NSPA - Ironbridge Precinct - Reception Hallway
+  name: TSEPA - Ironbridge Precinct - Reception Hallway
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -2027,7 +2087,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsHallwayNorth
-  name: NSPA - Ironbridge Precinct - North Hallway
+  name: TSEPA - Ironbridge Precinct - North Hallway
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -2035,12 +2095,12 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsHallwayNorthLocker
-  name: NSPA - Ironbridge Precinct - North Hallway - Locker Room
+  name: TSEPA - Ironbridge Precinct - North Hallway - Locker Room
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsHoldingCells
-  name: NSPA - Ironbridge Precinct - Holding Cells
+  name: TSEPA - Ironbridge Precinct - Holding Cells
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -2048,7 +2108,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsHeadOffice
-  name: NSPA - Ironbridge Precinct - Forensics Office
+  name: TSEPA - Ironbridge Precinct - Forensics Office
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -2056,7 +2116,7 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsNorthOffice
-  name: NSPA - Ironbridge Precinct - North Office
+  name: TSEPA - Ironbridge Precinct - North Office
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -2064,17 +2124,17 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsWardensOffice
-  name: NSPA - Ironbridge Precinct - Wardens Office
+  name: TSEPA - Ironbridge Precinct - Wardens Office
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsInterrogation
-  name: NSPA - Ironbridge Precinct - Interrogation
+  name: TSEPA - Ironbridge Precinct - Interrogation
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsPressRoom
-  name: NSPA - Ironbridge Precinct - Court Room
+  name: TSEPA - Ironbridge Precinct - Court Room
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -2082,17 +2142,17 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsChangingRoom
-  name: NSPA - Ironbridge Precinct - Changing Room
+  name: TSEPA - Ironbridge Precinct - Changing Room
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsRestroom
-  name: NSPA - Ironbridge Precinct - Restroom & Showers
+  name: TSEPA - Ironbridge Precinct - Restroom & Showers
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsSouthMaintenance
-  name: NSPA - Ironbridge Precinct - Maintenance - South
+  name: TSEPA - Ironbridge Precinct - Maintenance - South
   components:
   - type: Area
     linkedLz: dropship_lz2
@@ -2100,12 +2160,12 @@
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsNorthMaintenance
-  name: NSPA - Ironbridge Precinct - Maintenance - North
+  name: TSEPA - Ironbridge Precinct - Maintenance - North
 
 - type: entity
   parent: RMCAreaLv759IndoorsColonialMarshals
   id: RMCAreaLv759IndoorsColonialMarshalsSouthwestMaintenance
-  name: NSPA - Ironbridge Precinct - Maintenance - Southwest
+  name: TSEPA - Ironbridge Precinct - Maintenance - Southwest
 
 - type: entity
   parent: RMCAreaLv759Indoors
@@ -2295,7 +2355,7 @@
   - type: Sprite
     state: security_checkpoint_east
   - type: Area
-    linkedLz: list(dropship_lz1, dropship_lz2)
+    linkedLz: dropship_lz1, dropship_lz2
 
 - type: entity
   parent: RMCAreaLv759IndoorsWySecurity
@@ -2312,6 +2372,11 @@
   components:
   - type: Sprite
     state: security_checkpoint_west
+
+- type: entity
+  parent: RMCAreaLv759IndoorsWySecurityCheckpointWest
+  id: RMCAreaLv759IndoorsWySecurityCheckpointWestCaves
+  name: Weston-Yamada Security Checkpoint - Caverns Entrance
 
 - type: entity
   parent: RMCAreaLv759IndoorsWySecurity
@@ -2335,6 +2400,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: false
     supplyDrop: false
     resinAllowed: false
@@ -2358,6 +2424,7 @@
     mortarPlacement: false
     mortarFire: false
     medevac: false
+    paradropping: false
     OB: true
     supplyDrop: false
 
@@ -2514,6 +2581,7 @@
     state: wylab
   - type: Area
     minimapColor: '#6C6767D8'
+    alwaysPowered: true
 
 - type: entity
   parent: RMCAreaLv759IndoorsWyResearchComplex
@@ -2586,3 +2654,80 @@
   components:
   - type: Sprite
     state: wylab
+
+# TSE Airbase
+- type: entity
+  parent: RMCAreaLv759Indoors
+  id: RMCAreaLv759IndoorsOutpostSouterMainHall
+  name: RCM-P Outpost Souter - Main Hall
+  components:
+  - type: Sprite
+    state: security_checkpoint_central
+  - type: Area
+    minimapColor: '#2364a1'
+
+- type: entity
+  parent: RMCAreaLv759IndoorsOutpostSouterMainHall
+  id: RMCAreaLv759IndoorsOutpostSouterDorms
+  name: RCM-P Outpost Souter - Dormitories
+  components:
+  - type: Sprite
+    state: security_hub
+
+- type: entity
+  parent: RMCAreaLv759IndoorsOutpostSouterMainHall
+  id: RMCAreaLv759IndoorsOutpostSouterArmoury
+  name: RCM-P Outpost Souter - Armoury
+  components:
+  - type: Sprite
+    state: security_hub
+
+- type: entity
+  parent: RMCAreaLv759IndoorsOutpostSouterMainHall
+  id: RMCAreaLv759IndoorsOutpostSouterFlightMaints
+  name: RCM-P Outpost Souter - Flight Maintenance Room
+  components:
+  - type: Sprite
+    state: security_hub
+
+- type: entity
+  parent: RMCAreaLv759IndoorsOutpostSouterMainHall
+  id: RMCAreaLv759IndoorsOutpostSouterHangar
+  name: RCM-P Outpost Souter - Hangar
+  components:
+  - type: Sprite
+    state: security_checkpoint_east
+
+- type: entity
+  parent: RMCAreaLv759IndoorsOutpostSouterMainHall
+  id: RMCAreaLv759IndoorsOutpostSouterReception
+  name: RCM-P Outpost Souter - Reception Office
+  components:
+  - type: Sprite
+    state: security_hub
+
+- type: entity
+  parent: RMCAreaLv759IndoorsOutpostSouterMainHall
+  id: RMCAreaLv759IndoorsOutpostSouterEntrance
+  name: RCM-P Outpost Souter - Entrance
+  components:
+  - type: Sprite
+    state: security_checkpoint_west
+
+- type: entity
+  parent: RMCAreaLv759IndoorsOutpostSouterMainHall
+  id: RMCAreaLv759IndoorsOutpostSouterFlightControl
+  name: RCM-P Outpost Souter - Flight Control
+  components:
+  - type: Sprite
+    state: security_hub
+
+- type: entity
+  parent: RMCAreaLv759IndoorsOutpostSouterMainHall
+  id: RMCAreaLv759IndoorsOutpostSouterUD4UK
+  name: TSE UD4-UK
+  components:
+  - type: Sprite
+    state: wydropship
+  - type: Area
+    minimapColor: '#6C6767D8'

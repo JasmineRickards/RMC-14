@@ -16,21 +16,21 @@ public sealed partial class FTLComponent : Component
 {
     // TODO Full game save / add datafields
 
-    [ViewVariables]
+    [DataField, AutoNetworkedField] // RMC14
     public FTLState State = FTLState.Available;
 
-    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField, AutoNetworkedField] // RMC14
     public StartEndTime StateTime;
 
-    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField, AutoNetworkedField] // RMC14
     public float StartupTime = 0f;
 
     // Because of sphagetti, actual travel time is Math.Max(TravelTime, DefaultArrivalTime)
-    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField, AutoNetworkedField] //RMC14
     public float TravelTime = 0f;
 
     [DataField]
-    public EntProtoId? VisualizerProto = "FtlVisualizerEntity";
+    public EntProtoId? VisualizerProto; // = "FtlVisualizerEntity" RMC14 no ftl visualizer;
 
     [DataField, AutoNetworkedField]
     public EntityUid? VisualizerEntity;

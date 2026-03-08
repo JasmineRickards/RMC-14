@@ -32,4 +32,13 @@ public sealed partial class DialogComponent : Component
 
     [DataField, AutoNetworkedField]
     public int CharacterLimit = 200;
+
+    [DataField, AutoNetworkedField]
+    public int MinCharacterLimit;
+
+    [DataField]
+    public bool AutoFocus = true;
+
+    [DataField, AutoNetworkedField]
+    public bool SmartCheck = false;
 }

@@ -1,6 +1,5 @@
 using Content.Shared._RMC14.Xenonids.Construction;
 using Content.Shared._RMC14.Xenonids.Construction.Tunnel;
-using Content.Shared._RMC14.Xenonids.Evolution;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
@@ -10,7 +9,7 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 namespace Content.Shared._RMC14.Xenonids.Hive;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause]
-[Access(typeof(SharedXenoHiveSystem), typeof(SharedXenoPylonSystem), typeof(SharedXenoTunnelSystem))]
+[Access(typeof(SharedXenoHiveSystem), typeof(SharedXenoPylonSystem), typeof(XenoTunnelSystem))]
 public sealed partial class HiveComponent : Component
 {
     [DataField, AutoNetworkedField]
@@ -24,7 +23,7 @@ public sealed partial class HiveComponent : Component
     public Dictionary<EntProtoId, int> FreeSlots = new() {["CMXenoHivelord"] = 1, ["CMXenoCarrier"] = 1, ["CMXenoBurrower"] = 1};
 
     [DataField, AutoNetworkedField]
-    public Dictionary<EntProtoId, int> HiveStructureSlots = new() { ["HiveCoreXeno"] = 1, ["HiveClusterXeno"] = 8, ["HivePylonXeno"] = 2, ["HiveEggMorpherXeno"] = 6, ["HiveRecoveryNodeXeno"] = 6 };
+    public Dictionary<EntProtoId, int> HiveStructureSlots = new() { ["HiveCoreXeno"] = 1, ["HiveClusterXeno"] = 8, ["HivePylonXeno"] = 2, ["HiveEggMorpherXeno"] = 6, ["HiveRecoveryNodeXeno"] = 6, ["HivePlasmaTreeXeno"] = 3 };
 
     [DataField, AutoNetworkedField]
     public Dictionary<TimeSpan, List<EntProtoId>> Unlocks = new();
@@ -36,7 +35,16 @@ public sealed partial class HiveComponent : Component
     public List<TimeSpan> AnnouncementsLeft = [];
 
     [DataField, AutoNetworkedField]
+    public bool AnnouncedQueenDeathCooldownOver;
+
+    [DataField, AutoNetworkedField]
+    public bool AnnouncedHiveCoreCooldownOver;
+
+    [DataField, AutoNetworkedField]
     public SoundSpecifier AnnounceSound = new SoundPathSpecifier("/Audio/_RMC14/Xeno/alien_distantroar_3.ogg", AudioParams.Default.WithVolume(-6));
+
+    [DataField, AutoNetworkedField]
+    public SoundSpecifier MarineAnnounceSound = new SoundCollectionSpecifier("XenoEchoRoar");
 
     [DataField, AutoNetworkedField]
     public bool SeeThroughContainers;
@@ -60,7 +68,10 @@ public sealed partial class HiveComponent : Component
     public TimeSpan PreSetupCutoff = TimeSpan.FromMinutes(20);
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField, AutoPausedField]
-    public TimeSpan NewCoreAt;
+    public TimeSpan? NewCoreAt;
+
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField, AutoPausedField]
+    public TimeSpan? NewQueenAt;
 
     [DataField, AutoNetworkedField]
     public bool HijackSurged;

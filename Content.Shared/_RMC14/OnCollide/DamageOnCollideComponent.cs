@@ -1,4 +1,4 @@
-﻿using Content.Shared._RMC14.Atmos;
+using Content.Shared._RMC14.Atmos;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Damage;
 using Content.Shared.Physics;
@@ -38,7 +38,16 @@ public sealed partial class DamageOnCollideComponent : Component
     public ProtoId<EmotePrototype>? Emote = "Scream";
 
     [DataField]
-    public CollisionGroup Collision = CollisionGroup.FullTileLayer;
+    public ProtoId<EmotePrototype>? XenoEmote = "Hiss";
+
+    [DataField]
+    public bool Acidic = false;
+
+    [DataField]
+    public bool Fire = false;
+
+    [DataField]
+    public CollisionGroup Collision = CollisionGroup.HighImpassable | CollisionGroup.MidImpassable | CollisionGroup.LowImpassable | CollisionGroup.BulletImpassable | CollisionGroup.InteractImpassable;
 
     [DataField]
     public TimeSpan AcidComboDuration;
@@ -48,6 +57,12 @@ public sealed partial class DamageOnCollideComponent : Component
 
     [DataField]
     public TimeSpan AcidComboParalyze;
+
+    [DataField]
+    public int AcidComboResists;
+
+    [DataField]
+    public int DirectHitMultiplier = 3;
 
     [DataField]
     public TimeSpan Paralyze;

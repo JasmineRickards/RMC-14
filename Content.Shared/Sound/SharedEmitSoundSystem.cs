@@ -31,13 +31,13 @@ public abstract class SharedEmitSoundSystem : EntitySystem
 {
     [Dependency] protected readonly IGameTiming Timing = default!;
     [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefMan = default!;
     [Dependency] protected readonly IRobustRandom Random = default!;
     [Dependency] private   readonly SharedAmbientSoundSystem _ambient = default!;
     [Dependency] private   readonly SharedAudioSystem _audioSystem = default!;
     [Dependency] protected readonly SharedPopupSystem Popup = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly TurfSystem _turf = default!;
 
     public override void Initialize()
     {
@@ -135,7 +135,7 @@ public abstract class SharedEmitSoundSystem : EntitySystem
         var tile = _map.GetTileRef(xform.GridUid.Value, grid, xform.Coordinates);
 
         // Handle maps being grids (we'll still emit the sound).
-        if (xform.GridUid != xform.MapUid && tile.IsSpace(_tileDefMan))
+        if (xform.GridUid != xform.MapUid && _turf.IsSpace(tile))
             return;
 
         // hand throwing not predicted sadly
@@ -151,8 +151,19 @@ public abstract class SharedEmitSoundSystem : EntitySystem
             args.Handled = true;
     }
 
-    private void OnEmitSoundOnThrown(EntityUid uid, BaseEmitSoundComponent component, ref ThrownEvent args)
+    private void OnEmitSoundOnThrown(EntityUid uid, EmitSoundOnThrowComponent component, ref ThrownEvent args)
     {
+        // RMC14
+        if (component.Cooldown > TimeSpan.Zero)
+        {
+            var time = Timing.CurTime;
+            if (time < component.Last + component.Cooldown)
+                return;
+
+            component.Last = time;
+            Dirty(uid, component);
+        }
+
         TryEmitSound(uid, component, args.User, false);
     }
 

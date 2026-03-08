@@ -6,6 +6,9 @@ using Content.Shared.Inventory.Events;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
+using static Robust.Shared.Utility.SpriteSpecifier;
 
 namespace Content.Client._RMC14.Webbing;
 
@@ -28,23 +31,41 @@ public sealed class WebbingSystem : SharedWebbingSystem
         SubscribeLocalEvent<WebbingTransferComponent, ComponentRemove>(OnWebbingTransferRemove);
     }
 
+    private WebbingVisualLayers GetWebbingLayer(WebbingClothingComponent comp)
+    {
+        return comp.Whitelist?.Tags?.Contains("ArmorWebbing") == true   // if the ArmorWebbing whitelist contains the "ArmorWebbing" tag, THEN
+            ? WebbingVisualLayers.Outer                                 // display the webbing on the OUTER layer,
+            : WebbingVisualLayers.Base;                                // otherwise use the BASE layer
+    }                                                       // it's ugly, but I'm not a programmer.
+
     private void OnWebbingClothingEquipmentVisuals(Entity<WebbingClothingComponent> ent, ref GetEquipmentVisualsEvent args)
     {
-        if (!TryComp(ent.Comp.Webbing, out WebbingComponent? webbing) ||
-            webbing.PlayerSprite is not { } sprite)
+        var layer = GetWebbingLayer(ent.Comp);  // define which layer to use based on the clothing's webbing whitelist
+
+        if (!TryComp(ent.Comp.Webbing, out WebbingComponent? webbing))
+        {
+            return;
+        }
+
+        if (webbing.PlayerSprite == null && TryComp(ent.Comp.Webbing, out SpriteComponent? webbingSprite))
+        {
+            webbing.PlayerSprite = new(webbingSprite.BaseRSI?.Path ?? new ResPath("_RMC14/Objects/Clothing/Webbing/webbing.rsi"), "equipped");
+        }
+
+        if (webbing.PlayerSprite is not { } sprite)
         {
             return;
         }
 
         if (TryComp(ent, out SpriteComponent? clothingSprite) &&
-            clothingSprite.LayerMapTryGet(WebbingVisualLayers.Base, out var clothingLayer))
-        {
-            clothingSprite.LayerSetVisible(clothingLayer, true);
-            clothingSprite.LayerSetRSI(clothingLayer, sprite.RsiPath);
-            clothingSprite.LayerSetState(clothingLayer, sprite.RsiState);
-        }
+                clothingSprite.LayerMapTryGet(layer, out var clothingLayer))
+            {
+                clothingSprite.LayerSetVisible(clothingLayer, true);
+                clothingSprite.LayerSetRSI(clothingLayer, sprite.RsiPath);
+                clothingSprite.LayerSetState(clothingLayer, sprite.RsiState);
+            }
 
-        args.Layers.Add(($"enum.{nameof(WebbingVisualLayers)}.{nameof(WebbingVisualLayers.Base)}", new PrototypeLayerData
+        args.Layers.Add(($"enum.{nameof(WebbingVisualLayers)}.{layer}", new PrototypeLayerData
         {
             RsiPath = sprite.RsiPath.CanonPath,
             State = sprite.RsiState,
@@ -53,8 +74,10 @@ public sealed class WebbingSystem : SharedWebbingSystem
 
     private void OnClothingState(Entity<WebbingClothingComponent> clothing, ref AfterAutoHandleStateEvent args)
     {
+        var layer = GetWebbingLayer(clothing.Comp);  // define which layer to use based on the clothing's webbing 
+
         if (TryComp(clothing, out SpriteComponent? clothingSprite) &&
-            clothingSprite.LayerMapTryGet(WebbingVisualLayers.Base, out var clothingLayer))
+            clothingSprite.LayerMapTryGet(layer, out var clothingLayer))
         {
             if (TryComp(clothing.Comp.Webbing, out WebbingComponent? webbing) &&
                 webbing.PlayerSprite is { } rsi)

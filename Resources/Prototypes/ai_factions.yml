@@ -22,6 +22,7 @@
   - Dragon
   - AllHostile
   - Wizard
+  - Xenoborg
   - RMCXeno
 
 - type: npcFaction
@@ -55,8 +56,11 @@
   - PetsNT
   - Zombie
   - Revolutionary
+  - Dragon
+  - Xeno
   - AllHostile
   - Wizard
+  - Xenoborg
   - Dragon
   - RMCXeno
   - UNMC
@@ -75,6 +79,7 @@
   - Dragon
   - AllHostile
   - Wizard
+  - Xenoborg
   - RMCXeno
   - UNMC
 
@@ -90,6 +95,7 @@
   - AllHostile
   - Wizard
   - Dragon
+  - Xenoborg
   - RMCXeno
   - UNMC
 
@@ -106,6 +112,7 @@
   - AllHostile
   - Wizard
   - Dragon
+  - Xenoborg
   - RMCXeno
   - UNMC
 
@@ -118,6 +125,7 @@
   - Dragon
   - AllHostile
   - Wizard
+  - Xenoborg
   - RMCXeno
   - UNMC
 
@@ -136,6 +144,7 @@
   - Zombie
   - Revolutionary
   - Wizard
+  - Xenoborg
 
 - type: npcFaction
   id: Wizard
@@ -151,6 +160,23 @@
   - Xeno
   - Zombie
   - Revolutionary
+  - AllHostile
+  - Xenoborg
+
+- type: npcFaction
+  id: Xenoborg
+  hostile:
+  # they have brains
+  - NanoTrasen
+  - Syndicate
+  - Zombie
+  - Revolutionary
+  - Wizard
+
+  - Xeno # rivalry
+
+  # cause they are hostile to them
+  - SimpleHostile 
   - AllHostile
   - RMCXeno
   - UNMC
