@@ -2,8 +2,8 @@
   id: UNMC
   hostile:
   - RMCXeno
-  - CLF
-
+  - Xeno
+  - Syndicate
 - type: npcFaction
   id: RMCXeno
   hostile:
@@ -13,8 +13,8 @@
   - WeYa
   - Civilian
   - CLF
-  - TSE
-
+  - Syndicate
+  - NanoTrasen
 - type: npcFaction
   id: RMCDumb
   hostile:
@@ -67,3 +67,6 @@
   id: TSE
   hostile:
   - RMCXeno
+  - Syndicate
+  - Xeno
+  - NanoTrasen

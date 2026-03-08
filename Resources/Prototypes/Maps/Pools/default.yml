@@ -1,14 +1,9 @@
 - type: gameMapPool
   id: DefaultMapPool
   maps:
-  - Amber
-  - Bagel
-  - Box
-  - Elkridge
-  - Fland
-  - Marathon
-  - Oasis
-  - Packed
-  - Plasma
-  - Reach
-  - Exo
+  - Savannah # Ship for downstreams and events
+
+- type: gameMapPool
+  id: DefaultMapPoolAlmayer
+  maps:
+  - Savannah

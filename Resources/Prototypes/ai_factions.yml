@@ -1,14 +1,15 @@
 - type: npcFaction
   id: Dragon
   hostile:
-  - NanoTrasen
-  - Syndicate
-  - Xeno
-  - PetsNT
-  - Zombie
-  - Revolutionary
-  - AllHostile
-  - Wizard
+    - NanoTrasen
+    - Syndicate
+    - Xeno
+    - PetsNT
+    - Zombie
+    - Revolutionary
+    - AllHostile
+    - RMCXeno
+    - UNMC
 
 - type: npcFaction
   id: NanoTrasen
@@ -22,6 +23,7 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  - RMCXeno
 
 - type: npcFaction
   id: Mouse
@@ -43,6 +45,7 @@
   - AllHostile
   - Wizard
   - Dragon
+  - RMCXeno
 
 - type: npcFaction
   id: SimpleHostile
@@ -58,6 +61,9 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  - Dragon
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: SimpleNeutral
@@ -74,6 +80,8 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: Xeno
@@ -88,6 +96,8 @@
   - Wizard
   - Dragon
   - Xenoborg
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: Zombie
@@ -103,6 +113,8 @@
   - Wizard
   - Dragon
   - Xenoborg
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: Revolutionary
@@ -114,6 +126,8 @@
   - AllHostile
   - Wizard
   - Xenoborg
+  - RMCXeno
+  - UNMC
 
 - type: npcFaction
   id: AllHostile
@@ -164,3 +178,5 @@
   # cause they are hostile to them
   - SimpleHostile 
   - AllHostile
+  - RMCXeno
+  - UNMC
